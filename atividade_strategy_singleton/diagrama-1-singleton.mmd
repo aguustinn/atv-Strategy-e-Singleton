@@ -1,0 +1,24 @@
+classDiagram
+direction LR
+class ConfiguracaoLoja {
+  -double tarifaPacPorKg
+  -double tarifaPacPorKm
+  -double tarifaSedexPorKg
+  -double tarifaSedexPorKm
+  -double taxaUrgenciaSedex
+  -ConfiguracaoLoja()
+  +static getInstance() ConfiguracaoLoja
+  +restaurarPadroes() void
+  +get/set tarifas
+}
+class AuditLog {
+  -static volatile AuditLog instance
+  -List~String~ registros
+  -AuditLog()
+  +static getInstance() AuditLog
+  +registrar(mensagem) void
+  +getRegistros() List~String~
+  +limpar() void
+}
+note for ConfiguracaoLoja "Criação thread-safe: Initialization-on-demand holder."
+note for AuditLog "Criação thread-safe: double-checked locking com volatile; lista sincronizada."
