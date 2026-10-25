@@ -1,0 +1,35 @@
+classDiagram
+direction TB
+class Pedido {
+  -int id
+  -double pesoKg
+  -double distanciaKm
+  -double valorItens
+  +Pedido(id, pesoKg, distanciaKm, valorItens)
+}
+class FreteStrategy {
+  <<interface>>
+  +getNome() String
+  +calcular(pedido) double
+}
+class FretePac
+class FreteSedex
+class RetiradaNaLoja
+class FreteGratisAcima
+class CalculadoraDeFrete {
+  -FreteStrategy estrategia
+  +setEstrategia(estrategia) void
+  +calcular(pedido) double
+}
+class ConfiguracaoLoja
+class AuditLog
+FreteStrategy <|.. FretePac : realiza
+FreteStrategy <|.. FreteSedex : realiza
+FreteStrategy <|.. RetiradaNaLoja : realiza
+FreteStrategy <|.. FreteGratisAcima : realiza
+CalculadoraDeFrete --> FreteStrategy : associação
+CalculadoraDeFrete ..> Pedido : usa
+CalculadoraDeFrete ..> AuditLog : registra
+FretePac ..> ConfiguracaoLoja : consulta tarifas
+FreteSedex ..> ConfiguracaoLoja : consulta tarifas
+FreteGratisAcima o--> FreteStrategy : envolve estratégia
